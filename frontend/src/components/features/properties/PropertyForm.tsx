@@ -35,8 +35,7 @@ export function PropertyForm({
   onSubmit: (values: CreatePropertyPayload) => void;
   isSubmitting?: boolean;
   submitLabel?: string;
-}) {
-  const {
+}) {  const {
     register,
     handleSubmit,
     setValue,
@@ -116,7 +115,7 @@ export function PropertyForm({
         </Select>
       </div>
       <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {submitLabel}
+        {isSubmitting ? "Saving…" : submitLabel}
       </Button>
     </form>
   );

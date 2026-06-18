@@ -46,7 +46,6 @@ export function useCreateProperty() {
     onError: (err) => toast.error(getApiErrorMessage(err, "Failed to add property")),
   });
 }
-
 export function useUpdateProperty(propertyId: string) {
   const qc = useQueryClient();
   return useMutation({

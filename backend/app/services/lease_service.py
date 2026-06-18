@@ -167,7 +167,9 @@ def terminate_lease(
         )
 
     lease.status = "TERMINATED"
-    lease.end_date = payload.termination_date
+    # Only update end_date if termination_date is after start_date (DB constraint: end_date > start_date)
+    if payload.termination_date > lease.start_date:
+        lease.end_date = payload.termination_date
     lease.notes = (
         f"{lease.notes}\n\nTerminated: {payload.reason}"
         if lease.notes

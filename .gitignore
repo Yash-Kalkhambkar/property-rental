@@ -1,0 +1,20 @@
+# Never commit secrets
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.py[cod]
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.output/
+frontend/.tanstack/tmp/
+
+# OS
+.DS_Store
+Thumbs.db

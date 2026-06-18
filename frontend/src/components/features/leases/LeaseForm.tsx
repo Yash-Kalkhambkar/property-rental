@@ -22,7 +22,7 @@ const schema = z
     end_date: z.string().min(1, "End date required"),
     monthly_rent: z.coerce.number().min(0),
     deposit_paid: z.coerce.number().min(0),
-    rent_due_day: z.coerce.number().int().min(1).max(31).optional(),
+    rent_due_day: z.coerce.number().int().min(1).max(28).optional(),
     notes: z.string().optional(),
   })
   .refine((v) => v.end_date >= v.start_date, {
@@ -123,7 +123,7 @@ export function LeaseForm({
         </div>
         <div className="space-y-2">
           <Label htmlFor="rent_due_day">Due day</Label>
-          <Input id="rent_due_day" type="number" min={1} max={31} {...register("rent_due_day")} />
+          <Input id="rent_due_day" type="number" min={1} max={28} {...register("rent_due_day")} />
         </div>
       </div>
       <div className="space-y-2">

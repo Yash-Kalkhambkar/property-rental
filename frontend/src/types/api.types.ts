@@ -190,6 +190,7 @@ export interface Payment {
   status: PaymentStatus;
   notes: string | null;
   created_at: string;
+  updated_at: string;
 }
 
 export interface CreatePaymentPayload {

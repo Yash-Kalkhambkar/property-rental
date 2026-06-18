@@ -1,0 +1,29 @@
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist/client",
+  "functions": {
+    "api/index.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/api/index.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

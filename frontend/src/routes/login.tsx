@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLogin } from "@/hooks/useAuth";
-import { useAuthStore } from "@/store/authStore";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -28,24 +27,11 @@ type FormValues = z.infer<typeof schema>;
 
 function LoginPage() {
   const login = useLogin();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
-
-  const handleDevLogin = () => {
-    useAuthStore.getState().setAccessToken("dev-bypass-token");
-    useAuthStore.getState().setOwner({
-      id: "dev-owner-001",
-      email: "dev@rentease.local",
-      full_name: "Dev User",
-      phone: "9999999999",
-      created_at: new Date().toISOString(),
-    });
-    navigate({ to: "/" });
-  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-secondary px-4">
@@ -78,18 +64,6 @@ function LoginPage() {
                 {login.isPending ? "Signing in…" : "Sign in"}
               </Button>
             </form>
-            {import.meta.env.DEV && (
-              <div className="mt-4 border-t pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full border-dashed border-amber-500 text-amber-600 hover:bg-amber-50 hover:text-amber-700"
-                  onClick={handleDevLogin}
-                >
-                  🔓 Dev Login (bypass auth)
-                </Button>
-              </div>
-            )}
           </CardContent>
         </Card>
         <p className="mt-6 text-center text-sm text-muted-foreground">
@@ -101,4 +75,4 @@ function LoginPage() {
       </div>
     </div>
   );
-}
+}

@@ -51,8 +51,8 @@ def login(
             detail="Invalid email or password",
         )
 
-    access_token = create_access_token(owner.id)
-    refresh_token = create_refresh_token(owner.id)
+    access_token = create_access_token(owner.id, role="OWNER")
+    refresh_token = create_refresh_token(owner.id, role="OWNER")
 
     # Set refresh token as httpOnly cookie
     response.set_cookie(
@@ -80,10 +80,10 @@ def refresh(request: Request, response: Response) -> TokenResponse:
             detail="Refresh token not found",
         )
 
-    owner_id = decode_token(refresh_token, expected_type="refresh")
+    owner_id, _role = decode_token(refresh_token, expected_type="refresh")
 
-    new_access_token = create_access_token(owner_id)
-    new_refresh_token = create_refresh_token(owner_id)
+    new_access_token = create_access_token(owner_id, role="OWNER")
+    new_refresh_token = create_refresh_token(owner_id, role="OWNER")
 
     # Rotate refresh token
     response.set_cookie(

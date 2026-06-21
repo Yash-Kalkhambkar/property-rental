@@ -5,7 +5,9 @@ from app.core.database import get_db
 from app.dependencies.auth import get_current_owner
 from app.models.owner import Owner
 from app.schemas.tenant import CreateTenantRequest, UpdateTenantRequest
+from app.schemas.tenant_auth import TemporaryPasswordResponse
 from app.services import tenant_service
+from app.services.tenant_auth_service import owner_reset_tenant_password
 
 router = APIRouter()
 
@@ -74,3 +76,17 @@ async def upload_document(
         db, current_owner, tenant_id, file
     )
     return {"data": result, "message": "Document uploaded"}
+
+
+@router.post("/{tenant_id}/reset-password", response_model=dict)
+def reset_tenant_password(
+    tenant_id: str,
+    db: Session = Depends(get_db),
+    current_owner: Owner = Depends(get_current_owner),
+):
+    """Owner resets a tenant's password. Returns a temporary password."""
+    temp_password = owner_reset_tenant_password(db, current_owner, tenant_id)
+    return {
+        "data": TemporaryPasswordResponse(temporary_password=temp_password),
+        "message": "Password reset successfully",
+    }

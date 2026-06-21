@@ -11,6 +11,7 @@ from app.schemas.tenant import (
     TenantResponse,
 )
 from app.services.storage_service import storage_service
+from app.core.security import hash_password
 
 
 def list_tenants(
@@ -50,10 +51,19 @@ def create_tenant(
     db: Session, owner: Owner, payload: CreateTenantRequest
 ) -> TenantResponse:
     """Create a new tenant."""
+    # Check for duplicate email across all owners (global uniqueness)
+    existing = db.query(Tenant).filter(Tenant.email == payload.email).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Email already registered",
+        )
+
     tenant = Tenant(
         owner_id=owner.id,
         full_name=payload.full_name,
         email=payload.email,
+        password_hash=hash_password(payload.password),
         phone=payload.phone,
         emergency_contact_name=payload.emergency_contact_name,
         emergency_contact_phone=payload.emergency_contact_phone,

@@ -15,6 +15,7 @@ class Tenant(TimestampMixin, Base):
         ),
         Index("idx_tenants_owner_id", "owner_id"),
         Index("idx_tenants_phone", "phone"),
+        Index("idx_tenants_email", "email"),
     )
 
     owner_id: Mapped[str] = mapped_column(
@@ -23,7 +24,8 @@ class Tenant(TimestampMixin, Base):
         nullable=False,
     )
     full_name: Mapped[str] = mapped_column(String(255), nullable=False)
-    email: Mapped[str | None] = mapped_column(String(255))
+    email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    password_hash: Mapped[str] = mapped_column(String(60), nullable=False)
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
     emergency_contact_name: Mapped[str | None] = mapped_column(String(255))
     emergency_contact_phone: Mapped[str | None] = mapped_column(String(20))

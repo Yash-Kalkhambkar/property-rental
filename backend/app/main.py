@@ -16,6 +16,8 @@ from app.routers import (
     payments,
     dashboard,
     internal,
+    tenant_auth,
+    tenant_data,
 )
 from app.tasks.scheduler import start_scheduler
 
@@ -36,9 +38,13 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
+    allowed_origins = [settings.FRONTEND_URL]
+    if settings.FRONTEND_URL_ALT:
+        allowed_origins.append(settings.FRONTEND_URL_ALT)
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[settings.FRONTEND_URL],
+        allow_origins=allowed_origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -67,6 +73,16 @@ def create_app() -> FastAPI:
     )
     app.include_router(
         internal.router, prefix=f"{prefix}/internal", tags=["Internal"]
+    )
+    app.include_router(
+        tenant_auth.router,
+        prefix=f"{prefix}/auth/tenant",
+        tags=["Tenant Auth"],
+    )
+    app.include_router(
+        tenant_data.router,
+        prefix=f"{prefix}/tenant",
+        tags=["Tenant Data"],
     )
 
     @app.get("/health")

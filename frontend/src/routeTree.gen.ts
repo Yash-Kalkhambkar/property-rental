@@ -9,24 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AppRouteImport } from './routes/_app'
-import { Route as AppIndexRouteImport } from './routes/_app.index'
-import { Route as AppTenantsRouteImport } from './routes/_app.tenants'
-import { Route as AppPropertiesRouteImport } from './routes/_app.properties'
-import { Route as AppPaymentsRouteImport } from './routes/_app.payments'
-import { Route as AppLeasesRouteImport } from './routes/_app.leases'
-import { Route as AppTenantsIdRouteImport } from './routes/_app.tenants.$id'
-import { Route as AppPropertiesIdRouteImport } from './routes/_app.properties.$id'
-import { Route as AppLeasesIdRouteImport } from './routes/_app.leases.$id'
+import { Route as OwnerRouteImport } from './routes/_owner'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as TenantLoginRouteImport } from './routes/tenant/login'
+import { Route as TenantTenantRouteImport } from './routes/tenant/_tenant'
+import { Route as OwnerTenantsRouteImport } from './routes/_owner.tenants'
+import { Route as OwnerPropertiesRouteImport } from './routes/_owner.properties'
+import { Route as OwnerPaymentsRouteImport } from './routes/_owner.payments'
+import { Route as OwnerLeasesRouteImport } from './routes/_owner.leases'
+import { Route as OwnerDashboardRouteImport } from './routes/_owner.dashboard'
+import { Route as TenantTenantIndexRouteImport } from './routes/tenant/_tenant.index'
+import { Route as TenantTenantPropertiesRouteImport } from './routes/tenant/_tenant.properties'
+import { Route as TenantTenantProfileRouteImport } from './routes/tenant/_tenant.profile'
+import { Route as TenantTenantPaymentsRouteImport } from './routes/tenant/_tenant.payments'
+import { Route as TenantTenantLeasesRouteImport } from './routes/tenant/_tenant.leases'
+import { Route as OwnerTenantsIdRouteImport } from './routes/_owner.tenants.$id'
+import { Route as OwnerPropertiesIdRouteImport } from './routes/_owner.properties.$id'
+import { Route as OwnerLeasesIdRouteImport } from './routes/_owner.leases.$id'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -37,91 +39,151 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const OwnerRoute = OwnerRouteImport.update({
+  id: '/_owner',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AppTenantsRoute = AppTenantsRouteImport.update({
+const TenantLoginRoute = TenantLoginRouteImport.update({
+  id: '/tenant/login',
+  path: '/tenant/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TenantTenantRoute = TenantTenantRouteImport.update({
+  id: '/tenant/_tenant',
+  path: '/tenant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OwnerTenantsRoute = OwnerTenantsRouteImport.update({
   id: '/tenants',
   path: '/tenants',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => OwnerRoute,
 } as any)
-const AppPropertiesRoute = AppPropertiesRouteImport.update({
+const OwnerPropertiesRoute = OwnerPropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => OwnerRoute,
 } as any)
-const AppPaymentsRoute = AppPaymentsRouteImport.update({
+const OwnerPaymentsRoute = OwnerPaymentsRouteImport.update({
   id: '/payments',
   path: '/payments',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => OwnerRoute,
 } as any)
-const AppLeasesRoute = AppLeasesRouteImport.update({
+const OwnerLeasesRoute = OwnerLeasesRouteImport.update({
   id: '/leases',
   path: '/leases',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => OwnerRoute,
 } as any)
-const AppTenantsIdRoute = AppTenantsIdRouteImport.update({
+const OwnerDashboardRoute = OwnerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => OwnerRoute,
+} as any)
+const TenantTenantIndexRoute = TenantTenantIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TenantTenantRoute,
+} as any)
+const TenantTenantPropertiesRoute = TenantTenantPropertiesRouteImport.update({
+  id: '/properties',
+  path: '/properties',
+  getParentRoute: () => TenantTenantRoute,
+} as any)
+const TenantTenantProfileRoute = TenantTenantProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => TenantTenantRoute,
+} as any)
+const TenantTenantPaymentsRoute = TenantTenantPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => TenantTenantRoute,
+} as any)
+const TenantTenantLeasesRoute = TenantTenantLeasesRouteImport.update({
+  id: '/leases',
+  path: '/leases',
+  getParentRoute: () => TenantTenantRoute,
+} as any)
+const OwnerTenantsIdRoute = OwnerTenantsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => AppTenantsRoute,
+  getParentRoute: () => OwnerTenantsRoute,
 } as any)
-const AppPropertiesIdRoute = AppPropertiesIdRouteImport.update({
+const OwnerPropertiesIdRoute = OwnerPropertiesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => AppPropertiesRoute,
+  getParentRoute: () => OwnerPropertiesRoute,
 } as any)
-const AppLeasesIdRoute = AppLeasesIdRouteImport.update({
+const OwnerLeasesIdRoute = OwnerLeasesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => AppLeasesRoute,
+  getParentRoute: () => OwnerLeasesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppIndexRoute
+  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/leases': typeof AppLeasesRouteWithChildren
-  '/payments': typeof AppPaymentsRoute
-  '/properties': typeof AppPropertiesRouteWithChildren
-  '/tenants': typeof AppTenantsRouteWithChildren
-  '/leases/$id': typeof AppLeasesIdRoute
-  '/properties/$id': typeof AppPropertiesIdRoute
-  '/tenants/$id': typeof AppTenantsIdRoute
+  '/dashboard': typeof OwnerDashboardRoute
+  '/leases': typeof OwnerLeasesRouteWithChildren
+  '/payments': typeof OwnerPaymentsRoute
+  '/properties': typeof OwnerPropertiesRouteWithChildren
+  '/tenants': typeof OwnerTenantsRouteWithChildren
+  '/tenant': typeof TenantTenantRouteWithChildren
+  '/tenant/login': typeof TenantLoginRoute
+  '/leases/$id': typeof OwnerLeasesIdRoute
+  '/properties/$id': typeof OwnerPropertiesIdRoute
+  '/tenants/$id': typeof OwnerTenantsIdRoute
+  '/tenant/leases': typeof TenantTenantLeasesRoute
+  '/tenant/payments': typeof TenantTenantPaymentsRoute
+  '/tenant/profile': typeof TenantTenantProfileRoute
+  '/tenant/properties': typeof TenantTenantPropertiesRoute
+  '/tenant/': typeof TenantTenantIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/leases': typeof AppLeasesRouteWithChildren
-  '/payments': typeof AppPaymentsRoute
-  '/properties': typeof AppPropertiesRouteWithChildren
-  '/tenants': typeof AppTenantsRouteWithChildren
-  '/': typeof AppIndexRoute
-  '/leases/$id': typeof AppLeasesIdRoute
-  '/properties/$id': typeof AppPropertiesIdRoute
-  '/tenants/$id': typeof AppTenantsIdRoute
+  '/dashboard': typeof OwnerDashboardRoute
+  '/leases': typeof OwnerLeasesRouteWithChildren
+  '/payments': typeof OwnerPaymentsRoute
+  '/properties': typeof OwnerPropertiesRouteWithChildren
+  '/tenants': typeof OwnerTenantsRouteWithChildren
+  '/tenant/login': typeof TenantLoginRoute
+  '/leases/$id': typeof OwnerLeasesIdRoute
+  '/properties/$id': typeof OwnerPropertiesIdRoute
+  '/tenants/$id': typeof OwnerTenantsIdRoute
+  '/tenant/leases': typeof TenantTenantLeasesRoute
+  '/tenant/payments': typeof TenantTenantPaymentsRoute
+  '/tenant/profile': typeof TenantTenantProfileRoute
+  '/tenant/properties': typeof TenantTenantPropertiesRoute
+  '/tenant': typeof TenantTenantIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_app': typeof AppRouteWithChildren
+  '/': typeof IndexRoute
+  '/_owner': typeof OwnerRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/_app/leases': typeof AppLeasesRouteWithChildren
-  '/_app/payments': typeof AppPaymentsRoute
-  '/_app/properties': typeof AppPropertiesRouteWithChildren
-  '/_app/tenants': typeof AppTenantsRouteWithChildren
-  '/_app/': typeof AppIndexRoute
-  '/_app/leases/$id': typeof AppLeasesIdRoute
-  '/_app/properties/$id': typeof AppPropertiesIdRoute
-  '/_app/tenants/$id': typeof AppTenantsIdRoute
+  '/_owner/dashboard': typeof OwnerDashboardRoute
+  '/_owner/leases': typeof OwnerLeasesRouteWithChildren
+  '/_owner/payments': typeof OwnerPaymentsRoute
+  '/_owner/properties': typeof OwnerPropertiesRouteWithChildren
+  '/_owner/tenants': typeof OwnerTenantsRouteWithChildren
+  '/tenant/_tenant': typeof TenantTenantRouteWithChildren
+  '/tenant/login': typeof TenantLoginRoute
+  '/_owner/leases/$id': typeof OwnerLeasesIdRoute
+  '/_owner/properties/$id': typeof OwnerPropertiesIdRoute
+  '/_owner/tenants/$id': typeof OwnerTenantsIdRoute
+  '/tenant/_tenant/leases': typeof TenantTenantLeasesRoute
+  '/tenant/_tenant/payments': typeof TenantTenantPaymentsRoute
+  '/tenant/_tenant/profile': typeof TenantTenantProfileRoute
+  '/tenant/_tenant/properties': typeof TenantTenantPropertiesRoute
+  '/tenant/_tenant/': typeof TenantTenantIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,59 +191,74 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/register'
-    | '/sitemap.xml'
+    | '/dashboard'
     | '/leases'
     | '/payments'
     | '/properties'
     | '/tenants'
+    | '/tenant'
+    | '/tenant/login'
     | '/leases/$id'
     | '/properties/$id'
     | '/tenants/$id'
+    | '/tenant/leases'
+    | '/tenant/payments'
+    | '/tenant/profile'
+    | '/tenant/properties'
+    | '/tenant/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/login'
     | '/register'
-    | '/sitemap.xml'
+    | '/dashboard'
     | '/leases'
     | '/payments'
     | '/properties'
     | '/tenants'
-    | '/'
+    | '/tenant/login'
     | '/leases/$id'
     | '/properties/$id'
     | '/tenants/$id'
+    | '/tenant/leases'
+    | '/tenant/payments'
+    | '/tenant/profile'
+    | '/tenant/properties'
+    | '/tenant'
   id:
     | '__root__'
-    | '/_app'
+    | '/'
+    | '/_owner'
     | '/login'
     | '/register'
-    | '/sitemap.xml'
-    | '/_app/leases'
-    | '/_app/payments'
-    | '/_app/properties'
-    | '/_app/tenants'
-    | '/_app/'
-    | '/_app/leases/$id'
-    | '/_app/properties/$id'
-    | '/_app/tenants/$id'
+    | '/_owner/dashboard'
+    | '/_owner/leases'
+    | '/_owner/payments'
+    | '/_owner/properties'
+    | '/_owner/tenants'
+    | '/tenant/_tenant'
+    | '/tenant/login'
+    | '/_owner/leases/$id'
+    | '/_owner/properties/$id'
+    | '/_owner/tenants/$id'
+    | '/tenant/_tenant/leases'
+    | '/tenant/_tenant/payments'
+    | '/tenant/_tenant/profile'
+    | '/tenant/_tenant/properties'
+    | '/tenant/_tenant/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AppRoute: typeof AppRouteWithChildren
+  IndexRoute: typeof IndexRoute
+  OwnerRoute: typeof OwnerRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TenantTenantRoute: typeof TenantTenantRouteWithChildren
+  TenantLoginRoute: typeof TenantLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -196,142 +273,210 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app': {
-      id: '/_app'
+    '/_owner': {
+      id: '/_owner'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof AppRouteImport
+      preLoaderRoute: typeof OwnerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/': {
-      id: '/_app/'
+    '/': {
+      id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/tenants': {
-      id: '/_app/tenants'
+    '/tenant/login': {
+      id: '/tenant/login'
+      path: '/tenant/login'
+      fullPath: '/tenant/login'
+      preLoaderRoute: typeof TenantLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tenant/_tenant': {
+      id: '/tenant/_tenant'
+      path: '/tenant'
+      fullPath: '/tenant'
+      preLoaderRoute: typeof TenantTenantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_owner/tenants': {
+      id: '/_owner/tenants'
       path: '/tenants'
       fullPath: '/tenants'
-      preLoaderRoute: typeof AppTenantsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof OwnerTenantsRouteImport
+      parentRoute: typeof OwnerRoute
     }
-    '/_app/properties': {
-      id: '/_app/properties'
+    '/_owner/properties': {
+      id: '/_owner/properties'
       path: '/properties'
       fullPath: '/properties'
-      preLoaderRoute: typeof AppPropertiesRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof OwnerPropertiesRouteImport
+      parentRoute: typeof OwnerRoute
     }
-    '/_app/payments': {
-      id: '/_app/payments'
+    '/_owner/payments': {
+      id: '/_owner/payments'
       path: '/payments'
       fullPath: '/payments'
-      preLoaderRoute: typeof AppPaymentsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof OwnerPaymentsRouteImport
+      parentRoute: typeof OwnerRoute
     }
-    '/_app/leases': {
-      id: '/_app/leases'
+    '/_owner/leases': {
+      id: '/_owner/leases'
       path: '/leases'
       fullPath: '/leases'
-      preLoaderRoute: typeof AppLeasesRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof OwnerLeasesRouteImport
+      parentRoute: typeof OwnerRoute
     }
-    '/_app/tenants/$id': {
-      id: '/_app/tenants/$id'
+    '/_owner/dashboard': {
+      id: '/_owner/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof OwnerDashboardRouteImport
+      parentRoute: typeof OwnerRoute
+    }
+    '/tenant/_tenant/': {
+      id: '/tenant/_tenant/'
+      path: '/'
+      fullPath: '/tenant/'
+      preLoaderRoute: typeof TenantTenantIndexRouteImport
+      parentRoute: typeof TenantTenantRoute
+    }
+    '/tenant/_tenant/properties': {
+      id: '/tenant/_tenant/properties'
+      path: '/properties'
+      fullPath: '/tenant/properties'
+      preLoaderRoute: typeof TenantTenantPropertiesRouteImport
+      parentRoute: typeof TenantTenantRoute
+    }
+    '/tenant/_tenant/profile': {
+      id: '/tenant/_tenant/profile'
+      path: '/profile'
+      fullPath: '/tenant/profile'
+      preLoaderRoute: typeof TenantTenantProfileRouteImport
+      parentRoute: typeof TenantTenantRoute
+    }
+    '/tenant/_tenant/payments': {
+      id: '/tenant/_tenant/payments'
+      path: '/payments'
+      fullPath: '/tenant/payments'
+      preLoaderRoute: typeof TenantTenantPaymentsRouteImport
+      parentRoute: typeof TenantTenantRoute
+    }
+    '/tenant/_tenant/leases': {
+      id: '/tenant/_tenant/leases'
+      path: '/leases'
+      fullPath: '/tenant/leases'
+      preLoaderRoute: typeof TenantTenantLeasesRouteImport
+      parentRoute: typeof TenantTenantRoute
+    }
+    '/_owner/tenants/$id': {
+      id: '/_owner/tenants/$id'
       path: '/$id'
       fullPath: '/tenants/$id'
-      preLoaderRoute: typeof AppTenantsIdRouteImport
-      parentRoute: typeof AppTenantsRoute
+      preLoaderRoute: typeof OwnerTenantsIdRouteImport
+      parentRoute: typeof OwnerTenantsRoute
     }
-    '/_app/properties/$id': {
-      id: '/_app/properties/$id'
+    '/_owner/properties/$id': {
+      id: '/_owner/properties/$id'
       path: '/$id'
       fullPath: '/properties/$id'
-      preLoaderRoute: typeof AppPropertiesIdRouteImport
-      parentRoute: typeof AppPropertiesRoute
+      preLoaderRoute: typeof OwnerPropertiesIdRouteImport
+      parentRoute: typeof OwnerPropertiesRoute
     }
-    '/_app/leases/$id': {
-      id: '/_app/leases/$id'
+    '/_owner/leases/$id': {
+      id: '/_owner/leases/$id'
       path: '/$id'
       fullPath: '/leases/$id'
-      preLoaderRoute: typeof AppLeasesIdRouteImport
-      parentRoute: typeof AppLeasesRoute
+      preLoaderRoute: typeof OwnerLeasesIdRouteImport
+      parentRoute: typeof OwnerLeasesRoute
     }
   }
 }
 
-interface AppLeasesRouteChildren {
-  AppLeasesIdRoute: typeof AppLeasesIdRoute
+interface OwnerLeasesRouteChildren {
+  OwnerLeasesIdRoute: typeof OwnerLeasesIdRoute
 }
 
-const AppLeasesRouteChildren: AppLeasesRouteChildren = {
-  AppLeasesIdRoute: AppLeasesIdRoute,
+const OwnerLeasesRouteChildren: OwnerLeasesRouteChildren = {
+  OwnerLeasesIdRoute: OwnerLeasesIdRoute,
 }
 
-const AppLeasesRouteWithChildren = AppLeasesRoute._addFileChildren(
-  AppLeasesRouteChildren,
+const OwnerLeasesRouteWithChildren = OwnerLeasesRoute._addFileChildren(
+  OwnerLeasesRouteChildren,
 )
 
-interface AppPropertiesRouteChildren {
-  AppPropertiesIdRoute: typeof AppPropertiesIdRoute
+interface OwnerPropertiesRouteChildren {
+  OwnerPropertiesIdRoute: typeof OwnerPropertiesIdRoute
 }
 
-const AppPropertiesRouteChildren: AppPropertiesRouteChildren = {
-  AppPropertiesIdRoute: AppPropertiesIdRoute,
+const OwnerPropertiesRouteChildren: OwnerPropertiesRouteChildren = {
+  OwnerPropertiesIdRoute: OwnerPropertiesIdRoute,
 }
 
-const AppPropertiesRouteWithChildren = AppPropertiesRoute._addFileChildren(
-  AppPropertiesRouteChildren,
+const OwnerPropertiesRouteWithChildren = OwnerPropertiesRoute._addFileChildren(
+  OwnerPropertiesRouteChildren,
 )
 
-interface AppTenantsRouteChildren {
-  AppTenantsIdRoute: typeof AppTenantsIdRoute
+interface OwnerTenantsRouteChildren {
+  OwnerTenantsIdRoute: typeof OwnerTenantsIdRoute
 }
 
-const AppTenantsRouteChildren: AppTenantsRouteChildren = {
-  AppTenantsIdRoute: AppTenantsIdRoute,
+const OwnerTenantsRouteChildren: OwnerTenantsRouteChildren = {
+  OwnerTenantsIdRoute: OwnerTenantsIdRoute,
 }
 
-const AppTenantsRouteWithChildren = AppTenantsRoute._addFileChildren(
-  AppTenantsRouteChildren,
+const OwnerTenantsRouteWithChildren = OwnerTenantsRoute._addFileChildren(
+  OwnerTenantsRouteChildren,
 )
 
-interface AppRouteChildren {
-  AppLeasesRoute: typeof AppLeasesRouteWithChildren
-  AppPaymentsRoute: typeof AppPaymentsRoute
-  AppPropertiesRoute: typeof AppPropertiesRouteWithChildren
-  AppTenantsRoute: typeof AppTenantsRouteWithChildren
-  AppIndexRoute: typeof AppIndexRoute
+interface OwnerRouteChildren {
+  OwnerDashboardRoute: typeof OwnerDashboardRoute
+  OwnerLeasesRoute: typeof OwnerLeasesRouteWithChildren
+  OwnerPaymentsRoute: typeof OwnerPaymentsRoute
+  OwnerPropertiesRoute: typeof OwnerPropertiesRouteWithChildren
+  OwnerTenantsRoute: typeof OwnerTenantsRouteWithChildren
 }
 
-const AppRouteChildren: AppRouteChildren = {
-  AppLeasesRoute: AppLeasesRouteWithChildren,
-  AppPaymentsRoute: AppPaymentsRoute,
-  AppPropertiesRoute: AppPropertiesRouteWithChildren,
-  AppTenantsRoute: AppTenantsRouteWithChildren,
-  AppIndexRoute: AppIndexRoute,
+const OwnerRouteChildren: OwnerRouteChildren = {
+  OwnerDashboardRoute: OwnerDashboardRoute,
+  OwnerLeasesRoute: OwnerLeasesRouteWithChildren,
+  OwnerPaymentsRoute: OwnerPaymentsRoute,
+  OwnerPropertiesRoute: OwnerPropertiesRouteWithChildren,
+  OwnerTenantsRoute: OwnerTenantsRouteWithChildren,
 }
 
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+const OwnerRouteWithChildren = OwnerRoute._addFileChildren(OwnerRouteChildren)
+
+interface TenantTenantRouteChildren {
+  TenantTenantLeasesRoute: typeof TenantTenantLeasesRoute
+  TenantTenantPaymentsRoute: typeof TenantTenantPaymentsRoute
+  TenantTenantProfileRoute: typeof TenantTenantProfileRoute
+  TenantTenantPropertiesRoute: typeof TenantTenantPropertiesRoute
+  TenantTenantIndexRoute: typeof TenantTenantIndexRoute
+}
+
+const TenantTenantRouteChildren: TenantTenantRouteChildren = {
+  TenantTenantLeasesRoute: TenantTenantLeasesRoute,
+  TenantTenantPaymentsRoute: TenantTenantPaymentsRoute,
+  TenantTenantProfileRoute: TenantTenantProfileRoute,
+  TenantTenantPropertiesRoute: TenantTenantPropertiesRoute,
+  TenantTenantIndexRoute: TenantTenantIndexRoute,
+}
+
+const TenantTenantRouteWithChildren = TenantTenantRoute._addFileChildren(
+  TenantTenantRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  AppRoute: AppRouteWithChildren,
+  IndexRoute: IndexRoute,
+  OwnerRoute: OwnerRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TenantTenantRoute: TenantTenantRouteWithChildren,
+  TenantLoginRoute: TenantLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

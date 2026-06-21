@@ -23,6 +23,7 @@ class Settings(BaseSettings):
 
     # ── App ───────────────────────────────────────────────────────────────────
     FRONTEND_URL: str = "http://localhost:5173"
+    FRONTEND_URL_ALT: str = "http://localhost:3000"
     ENVIRONMENT: str = "development"
 
     # ── Scheduler ─────────────────────────────────────────────────────────────

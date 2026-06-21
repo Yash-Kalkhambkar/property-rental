@@ -15,30 +15,59 @@ def verify_password(plain: str, hashed: str) -> bool:
     return bcrypt.checkpw(plain.encode(), hashed.encode())
 
 
-def create_access_token(owner_id: str) -> str:
+def create_access_token(user_id: str, role: str) -> str:
+    """Generate JWT access token with role claim.
+    
+    Args:
+        user_id: The user's unique identifier (owner_id or tenant_id)
+        role: The user's role ('OWNER' or 'TENANT')
+    
+    Returns:
+        Encoded JWT access token string
+    """
     expire = datetime.now(timezone.utc) + timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     return jwt.encode(
-        {"sub": owner_id, "exp": expire, "type": "access"},
+        {"sub": user_id, "role": role, "exp": expire, "type": "access"},
         settings.SECRET_KEY,
         algorithm=settings.ALGORITHM,
     )
 
 
-def create_refresh_token(owner_id: str) -> str:
+def create_refresh_token(user_id: str, role: str) -> str:
+    """Generate JWT refresh token with role claim.
+    
+    Args:
+        user_id: The user's unique identifier (owner_id or tenant_id)
+        role: The user's role ('OWNER' or 'TENANT')
+    
+    Returns:
+        Encoded JWT refresh token string
+    """
     expire = datetime.now(timezone.utc) + timedelta(
         days=settings.REFRESH_TOKEN_EXPIRE_DAYS
     )
     return jwt.encode(
-        {"sub": owner_id, "exp": expire, "type": "refresh"},
+        {"sub": user_id, "role": role, "exp": expire, "type": "refresh"},
         settings.SECRET_KEY,
         algorithm=settings.ALGORITHM,
     )
 
 
-def decode_token(token: str, expected_type: str = "access") -> str:
-    """Returns owner_id or raises 401."""
+def decode_token(token: str, expected_type: str = "access") -> tuple[str, str]:
+    """Decode JWT and return (user_id, role).
+    
+    Args:
+        token: The JWT token string to decode
+        expected_type: Expected token type ('access' or 'refresh')
+    
+    Returns:
+        Tuple of (user_id, role) where role is 'OWNER' or 'TENANT'
+    
+    Raises:
+        HTTPException: 401 if token is invalid, expired, or missing required claims
+    """
     exc = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Invalid or expired token",
@@ -50,9 +79,10 @@ def decode_token(token: str, expected_type: str = "access") -> str:
         )
         if payload.get("type") != expected_type:
             raise exc
-        owner_id: str = payload.get("sub")
-        if not owner_id:
+        user_id: str = payload.get("sub")
+        role: str = payload.get("role")
+        if not user_id or not role:
             raise exc
-        return owner_id
+        return (user_id, role)
     except JWTError:
         raise exc
